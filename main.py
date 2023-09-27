@@ -16,6 +16,20 @@ def check_if_palindrome(word: str) -> bool:
     return True
 
 
+def palindrome() -> None:
+    """
+    Prints a message if a given word is a palindrome.
+    :return: print message.
+    """
+    user_word = input("Please enter a word: ")
+    if check_if_palindrome(word=user_word):
+        print(f"The word {user_word} is a palindrome.")
+    else:
+        print(f"The word {user_word} is not a palindrome.")
+
+
+palindrome()
+
 # TODO 1✔️: Write the main function.
 # TODO 2: Check if the input is a string.
 # TODO 3️: Add docstring, check typing.
