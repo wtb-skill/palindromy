@@ -49,7 +49,7 @@ def palindrome() -> None:
     Prints a message if a given string is a palindrome or not.
     :return: print message.
     """
-    user_string = input("Please enter a word: ")
+    user_string = input("Let's check if your input is a palindrome: ")
     input_type = check_input(user_input=user_string)
     modified_string = modify_word(user_string)
     if check_if_palindrome(word=modified_string):
@@ -58,9 +58,14 @@ def palindrome() -> None:
         print(f"The {input_type} '{user_string}' is not a palindrome.")
 
 
-palindrome()
+if __name__ == "__main__":
+    print("Palindrome: a word, phrase, or sequence that reads the same backwards as forwards, e.g. madam or "
+          "nurses run.")
+    end: str = 'y'
+    while end.lower()[0] != 'n':
+        palindrome()
+        end = input("Would you like to continue checking? y/n: ")
 
-# TODO 1️: ✔ Write the main function.
-# TODO 2: ✔ Check if the input is a string.
-# TODO 3️: ✔ Add docstring, check typing.
+
+
 
