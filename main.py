@@ -1,24 +1,42 @@
 # Zaprogramuj funkcję, która przyjmuje jeden argument (typu string) i zwraca wartość boolean: True/False,
 # mówiącą, czy podany tekst jest palindromem.
+import string
+import re
+import logging
 
-def check_if_palindrome(word: str) -> bool:
+logging.basicConfig(level=logging.DEBUG, format='\n%(asctime)s %(message)s')
+
+
+def is_palindrome(text: str) -> bool:
     """
     Checks if a given string is a palindrome.
-    :param word: any string.
+
+    :param text: any string.
     :return: True if palindrome, False if not.
     """
-    length = len(word)
-    for index in range(0, length//2):
-        if word[index].lower() == word[length - 1 - index].lower():
-            continue
-        else:
-            return False
-    return True
+    return text == text[::-1]
+
+
+def modify_text(text: str) -> str:
+    """
+    Removes whitespace, space, new lines, tabs and punctuation from the user input. Only uses lowercase letters.
+
+    :param text: any str.
+    :return: modified input.
+    """
+    text = text.lower()  # Only use lowercase
+    text = text.strip()  # Removes whitespace
+    text = text.replace(' ', '')  # Remove spaces
+    text = text.replace("\n", "")  # Removes new lines
+    text = text.replace("\t", "")  # Removes tabs
+    text = re.sub(f"[{re.escape(string.punctuation)}]", "", text)  # Remove punctuation
+    return text
 
 
 def check_input(user_input: str) -> str:
     """
     Checks what is the type of the string: is it a word, a number, a phrase or uncategorized.
+
     :param user_input: any str.
     :return: the type as a string.
     """
@@ -31,31 +49,34 @@ def check_input(user_input: str) -> str:
     return "uncategorized input"
 
 
-def modify_word(word: str) -> str:
-    """
-    Removes whitespace, space and punctuation from the user input.
-    :param word: any str.
-    :return: modified input.
-    """
-    punctuation = [' ', ',', '.', '!', '?']
-    word = word.strip()      # Remove leading and trailing whitespace
-    for sign in punctuation:      # Remove punctuation
-        word = word.replace(sign, "")
-    return word
-
-
 def palindrome() -> None:
     """
     Prints a message if a given string is a palindrome or not.
     :return: print message.
     """
-    user_string = input("Let's check if your input is a palindrome: ")
+    user_string = input("Let's check if your input is a palindrome.\n"
+                        ">If you give an empty string it will check the contents of the 'palindrom-poemat.txt'.<\n"
+                        "Give me a text to check:")
+    if user_string == '':
+        user_string = test()
     input_type = check_input(user_input=user_string)
-    modified_string = modify_word(user_string)
-    if check_if_palindrome(word=modified_string):
+    modified_text = modify_text(user_string)
+    if is_palindrome(text=modified_text):
         print(f"The {input_type} '{user_string}' is a palindrome.")
     else:
         print(f"The {input_type} '{user_string}' is not a palindrome.")
+
+
+def test() -> str:
+    """
+    Automatically tests if the contents of 'palindrom-poemat' file, containing the mentor's long palindrome phrase
+    are a palindrome or not.
+
+    :return: None
+    """
+    with open('palindrom-poemat.txt', encoding='utf-8') as file:
+        contents = file.read()
+    return contents
 
 
 if __name__ == "__main__":
@@ -65,7 +86,3 @@ if __name__ == "__main__":
     while end.lower()[0] != 'n':
         palindrome()
         end = input("Would you like to continue checking? y/n: ")
-
-
-
-
