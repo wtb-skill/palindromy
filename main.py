@@ -2,9 +2,6 @@
 # mówiącą, czy podany tekst jest palindromem.
 import string
 import re
-import logging
-
-logging.basicConfig(level=logging.DEBUG, format='\n%(asctime)s %(message)s')
 
 
 def is_palindrome(text: str) -> bool:
