@@ -69,10 +69,9 @@ def palindrome() -> None:
 
 def test() -> str:
     """
-    Automatically tests if the contents of 'palindrom-poemat' file, containing the mentor's long palindrome phrase
-    are a palindrome or not.
+    Loads the 'palindrom-poemat.txt' as a string.
 
-    :return: None
+    :return: contents of palindrom-poemat as a string.
     """
     with open('palindrom-poemat.txt', encoding='utf-8') as file:
         contents = file.read()
